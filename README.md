@@ -1,3 +1,29 @@
+# Backend Developer Assignment
+## Introduction
+The BUX mobile apps communicate with the BUX backend through an HTTP RESTful API and messages exchanged over a WebSocket
+connection.
+The data format of the REST API is structured in JSON, as well as the messages exchanged over WebSocket.
+On top of the WebSocket connection, we have created an application protocol based on the concept of real-time feed "channels". The client can
+subscribe to these channels in order to receive real-time updates for it.
+We leverage the 'full-duplex' nature of WebSockets: the client has to send a WebSocket message to subscribe for a channel, and from this
+moment on, until unsubscription (or disconnect), he will start receiving messages with updates on this channel over the WebSocket connection.
+
+## Assignment Requirements
+The goal of this assignment is to build a very basic Trading Bot that tracks the price of a certain product and will execute a pre-defined trade in
+said product when it reaches a given price. After the product has been bought the Trading Bot should keep on tracking the prices and execute a
+sell order when a certain price is hit. In the input there should be a "upper limit" price and a "lower limit" price.
+At startup the Trading Bot should gather four inputs;
+* The product id (see below for a suggested list to test with)
+* The buy price
+* The upper limit sell price this is the price you are willing to close a position and make a profit.
+* The lower limit sell price this the price you want are willing to close a position at and make a loss.
+
+Note that for the trading logic to be valid, the relation between the buy price and the lower / upper limit should be: lower limit sell price < buy price
+< upper limit sell price. Think about what it means to close a position with a profit. What should the relation between the current price and the
+upper limit selling price should be when deciding to close the position or not?
+The Trading Bot should then subscribe to the Websocket channel for the given product id and when the buy price is reached it should execute the
+buy order (API definition below) and then when one of the limits is reached it should execute the sell order
+
 # Trading Bot
 
 ## Building and Running Instructions
